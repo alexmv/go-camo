@@ -69,7 +69,7 @@ build: setup
 
 test: setup
 	@echo "Running tests..."
-	@go test -count=1 -vet=off ${GOTEST_FLAGS} ./...
+	@go test -v -parallel=1 -count=1 -vet=off ${GOTEST_FLAGS} ./...
 
 cover: setup
 	@echo "Running tests with coverage..."

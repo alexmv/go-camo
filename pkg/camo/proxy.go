@@ -170,9 +170,7 @@ func (p *Proxy) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	nreq.Header.Add("User-Agent", p.config.ServerName)
 	nreq.Header.Add("Via", p.config.ServerName)
 
-	if mlog.HasDebug() {
-		mlog.Debugm("built outgoing request", mlog.Map{"req": httpReqToMlogMap(nreq)})
-	}
+	mlog.Printm("built outgoing request", mlog.Map{"req": httpReqToMlogMap(nreq)})
 
 	resp, err := p.client.Do(nreq)
 
@@ -237,9 +235,7 @@ func (p *Proxy) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	if mlog.HasDebug() {
-		mlog.Debugm("response from upstream", httpRespToMlogMap(resp))
-	}
+	mlog.Printm("response from upstream", httpRespToMlogMap(resp))
 
 	// check for too large a response
 	if p.config.MaxSize > 0 && resp.ContentLength > p.config.MaxSize {
