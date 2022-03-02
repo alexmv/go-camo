@@ -48,10 +48,10 @@ func (dr *DumbRouter) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 
 	components := strings.Split(r.URL.Path, "/")
-	if len(components) == 3 {
-		dr.CamoHandler.ServeHTTP(w, r)
+	if len(components) < 3 {
+		http.Error(w, "404 Not Found", http.StatusNotFound)
 		return
 	}
 
-	http.Error(w, "404 Not Found", http.StatusNotFound)
+	dr.CamoHandler.ServeHTTP(w, r)
 }
